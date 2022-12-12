@@ -33,6 +33,27 @@ view: order_items {
 
   measure: count {
     type: count
-    drill_fields: [id, inventory_items.id, orders.id]
-  }
+    drill_fields: [id, inventory_items.id]
 }
+
+  measure: count1 {
+    type: count_distinct
+    #drill_fields: [id, inventory_items.id, orders.id]
+    sql: ${order_id} ;;
+
+html:
+<head>
+<title>Page Title</title>
+</head>
+<body>
+
+
+<p>{{value}}</p>
+<a href="/explore/thelook/order_items?fields=order_items.detail*&f[users.id]={{value}}"><button>Order History</button></a>
+</body>
+</html>
+
+    ;;
+
+  }
+  }

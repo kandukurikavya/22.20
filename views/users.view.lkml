@@ -74,8 +74,46 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+  parameter: test {
+    type: unquoted
+    allowed_value: {
+
+      value: "total"
+    }
+    allowed_value: {
+
+      value: "average"
+    }
+  }
+
+  measure: testing {
+    type: number
+    value_format: "0.00%"
+    #value_format_name: decimal_2
+    sql:
+    {% if test._parameter_value == 'total' %}
+     ${count}
+    {% elsif test._parameter_value == 'city' %}
+ ${city}
+    {% else %}
+      null
+    {% endif %};;
+    html:
+    {% if test._parameter_value == 'totalcount' %}
+      {{rendered_value}}
+   {% elsif test._parameter_value == 'city' %}
+      {{rendered_value}}
+    {% else %}
+      <font color="black">{{ rendered_value }}</font>
+    {% endif %};;
+  }
+measure: sum_users {
+  type: number
+  sql:sum( ${traffic_source})/sum(${age}) ;;
+}
   measure: count {
     type: count
     drill_fields: [id, last_name, first_name, orders.count]
   }
+
 }

@@ -47,7 +47,7 @@ explore: inventory_items {
     relationship: many_to_one
   }
 }
-
+explore: sql_runner_query {}
 explore: order_items {
   join: inventory_items {
     type: left_outer

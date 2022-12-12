@@ -22,4 +22,10 @@ view: product_sheets {
     type: count
     drill_fields: [product_name, products.item_name, products.id]
   }
+
+  measure: euro {
+    type: number
+    sql: ${count}*-1000 ;;
+    value_format_name: eur
+  }
 }
